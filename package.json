@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JoshAtticus/leo-extended/issues"
   },
-  "homepage": "https://github.com/JoshAtticus/leo-extended#readme"
+  "homepage": "https://github.com/JoshAtticus/leo-extended#readme",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
 }
