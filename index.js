@@ -2,13 +2,15 @@ const express = require('express');
 const axios = require('axios');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
 
+require('dotenv').config();
+
 const app = express();
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-    systemInstruction: "You're Leo Trends, you'll receive the current page of posts on Meower and summarise it into dot points. Don't use markdown or HTML. Include usernames of people participating in discussions. Posts from 'Discord' are not actually Discord. Look at the post content instead and look for the username before the : (for example a post from Discord with the content 'JoshAtticus: hello' is actually a post from JoshAtticus sent from the Discord bridge). Keep it short, summarise everything into topics!",
+    model: "gemini-1.5-pro",
+    systemInstruction: "You're Leo Trends, you'll receive the current page of posts on Meower and summarise it into dot points. Don't use markdown or HTML. Include usernames of people participating in discussions. Posts from 'Discord' are not actually Discord. Look at the post content instead and look for the username before the : (for example a post from Discord with the content 'JoshAtticus: hello' is actually a post from JoshAtticus sent from the Discord bridge). Keep it really, *really*, short, group everything into topics! For example if 2 or more people are talking about the same thing, say for example 'Josh and eri are talking about Atticus'",
 });
 
 const generationConfig = {
@@ -55,7 +57,7 @@ app.get('/ai/trending', async (req, res) => {
         const summary = await summarizeData(meowerData);
         res.send(summary);
     } catch (error) {
-        res.status(500).send('Error processing your request.');
+        res.status(500).send('Ruh roh, error!\n\n' + error);
     }
 });
 
