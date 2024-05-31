@@ -1,0 +1,19 @@
+{
+  "name": "leo-extended-server",
+  "version": "1.0.0",
+  "description": "extended features server for leo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"it works trust me bro\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoshAtticus/leo-extended.git"
+  },
+  "author": "JoshAtticus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JoshAtticus/leo-extended/issues"
+  },
+  "homepage": "https://github.com/JoshAtticus/leo-extended#readme"
+}
