@@ -20,6 +20,7 @@ const generationConfig = {
     topP: 0.95,
     topK: 64,
     maxOutputTokens: 8192,
+    response_mime_type: "application/json",
 };
 
 const safetySettings = [
