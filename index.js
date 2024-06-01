@@ -3,11 +3,13 @@
 
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
 
 require('dotenv').config();
 
 const app = express();
+app.use(cors());
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
