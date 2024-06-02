@@ -104,6 +104,10 @@ app.get('/ai/trending', (req, res) => {
     res.send(cachedSummary || 'Summary not available yet, please try again in a few moments.');
 });
 
+app.get('/data/version', (req, res) => {
+    res.sendFile('latest.json');
+});
+
 const server = app.listen(3000, () => {
     console.log('Server running at http://localhost:3000/');
     updateSummaryCache(); // Generate initial summary
