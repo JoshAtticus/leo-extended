@@ -112,16 +112,6 @@ app.get('/data/version', (req, res) => {
 });
 
 app.post('/data/update/version', (req, res) => {
-    const token = req.headers['x-hub-signature-256'];
-    console.log("Received request to increment build number")
-
-    if (!token || token !== process.env.TOKEN) {
-        res.status(403).send('Invalid token');
-        console.log("Invalid token")
-        console.log("GitHub sent token: " + token)
-        console.log("Expected token: " + process.env.TOKEN)
-        return;
-    }
 
     fs.readFile(path.join(__dirname, './latest.json'), 'utf8', (err, data) => {
         if (err) {
