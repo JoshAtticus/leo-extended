@@ -2,7 +2,6 @@
 // npm install @google/generative-ai express axios dotenv
 
 const express = require('express');
-const fs = require('fs');
 const axios = require('axios');
 const cors = require('cors');
 const path = require('path');
@@ -109,38 +108,6 @@ app.get('/ai/trending', (req, res) => {
 
 app.get('/data/version', (req, res) => {
     res.sendFile(path.join(__dirname, './latest.json'));
-});
-
-app.post('/data/update/version', (req, res) => {
-
-    fs.readFile(path.join(__dirname, './latest.json'), 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error reading latest.json');
-            return;
-        }
-
-        let jsonData = JSON.parse(data);
-        if ('buildno' in jsonData) {
-            console.log(`Current build number: ${jsonData.buildno}`);
-            jsonData.buildno + 1;
-            console.log(`Incremented build number: ${jsonData.buildno}`);
-        } else {
-            jsonData.buildno = 1; // Initialize if it doesn't exist
-            console.log('Initialized build number to 1');
-        }
-
-        fs.writeFile(path.join(__dirname, './latest.json'), JSON.stringify(jsonData), (err) => {
-            if (err) {
-                console.error(err);
-                res.status(500).send('Error writing to latest.json');
-                return;
-            }
-
-            res.status(200).send('Build number incremented');
-            console.log("Build number incremented")
-        });
-    });
 });
 
 const server = app.listen(3000, () => {
