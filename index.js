@@ -117,6 +117,7 @@ app.post('/data/update/version', (req, res) => {
 
     if (!token || token !== process.env.TOKEN) {
         res.status(403).send('Invalid token');
+        console.log("Invalid token")
         return;
     }
 
