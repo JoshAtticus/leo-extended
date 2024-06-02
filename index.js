@@ -105,7 +105,7 @@ app.get('/ai/trending', (req, res) => {
 });
 
 app.get('/data/version', (req, res) => {
-    res.sendFile('latest.json');
+    res.sendFile('./latest.json');
 });
 
 const server = app.listen(3000, () => {
