@@ -2,6 +2,7 @@
 // npm install @google/generative-ai express axios dotenv
 
 const express = require('express');
+const fs = require('fs');
 const axios = require('axios');
 const cors = require('cors');
 const path = require('path');
@@ -11,6 +12,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -107,6 +109,40 @@ app.get('/ai/trending', (req, res) => {
 
 app.get('/data/version', (req, res) => {
     res.sendFile(path.join(__dirname, './latest.json'));
+});
+
+app.post('/data/update/version', (req, res) => {
+    const token = req.headers['x-hub-signature-256'];
+
+    if (!token || token !== process.env.TOKEN) {
+        res.status(403).send('Invalid token');
+        return;
+    }
+
+    fs.readFile(path.join(__dirname, './latest.json'), 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error reading latest.json');
+            return;
+        }
+
+        let jsonData = JSON.parse(data);
+        if ('buildno' in jsonData) {
+            jsonData.buildno += 1;
+        } else {
+            jsonData.buildno = 1; // Initialize if it doesn't exist
+        }
+
+        fs.writeFile(path.join(__dirname, './latest.json'), JSON.stringify(jsonData), (err) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error writing to latest.json');
+                return;
+            }
+
+            res.status(200).send('Build number incremented');
+        });
+    });
 });
 
 const server = app.listen(3000, () => {
