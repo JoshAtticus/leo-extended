@@ -122,9 +122,12 @@ app.post('/data/update/version', (req, res) => {
 
         let jsonData = JSON.parse(data);
         if ('buildno' in jsonData) {
+            console.log(`Current build number: ${jsonData.buildno}`);
             jsonData.buildno += 1;
+            console.log(`Incremented build number: ${jsonData.buildno}`);
         } else {
             jsonData.buildno = 1; // Initialize if it doesn't exist
+            console.log('Initialized build number to 1');
         }
 
         fs.writeFile(path.join(__dirname, './latest.json'), JSON.stringify(jsonData), (err) => {
