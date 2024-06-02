@@ -123,7 +123,7 @@ app.post('/data/update/version', (req, res) => {
         let jsonData = JSON.parse(data);
         if ('buildno' in jsonData) {
             console.log(`Current build number: ${jsonData.buildno}`);
-            jsonData.buildno += 1;
+            jsonData.buildno + 1;
             console.log(`Incremented build number: ${jsonData.buildno}`);
         } else {
             jsonData.buildno = 1; // Initialize if it doesn't exist
