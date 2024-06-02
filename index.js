@@ -118,6 +118,8 @@ app.post('/data/update/version', (req, res) => {
     if (!token || token !== process.env.TOKEN) {
         res.status(403).send('Invalid token');
         console.log("Invalid token")
+        console.log("GitHub sent token: " + token)
+        console.log("Expected token: " + process.env.TOKEN)
         return;
     }
 
