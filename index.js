@@ -43,7 +43,7 @@ function extractRelevantData(data) {
 }
 
 async function summarizeData(data) {
-    const MODEL_NAME = "gemini-1.5-pro";
+    const MODEL_NAME = "gemini-1.5-flash";
 
     const generationConfig = {
         temperature: 1,
