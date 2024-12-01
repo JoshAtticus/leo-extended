@@ -19,7 +19,7 @@ let cachedSummary = '';
 
 async function fetchMeowerData() {
     try {
-        const response = await axios.get('https://api.meower.org/home?autoget=1');
+        const response = await axios.get('https://meower-api.joshatticus.site/home?autoget=1');
         return response.data;
     } catch (error) {
         console.error('Error fetching Meower data:', error);
